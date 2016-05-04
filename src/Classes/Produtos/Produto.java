@@ -1,4 +1,4 @@
-package Classes;
+package Classes.Produtos;
 //Importações
 import java.util.Calendar;
 
@@ -16,10 +16,7 @@ import java.util.Calendar;
  * Funções a serem implementadas: Salvar, buscar, e apagar produtos em arquivo.
  * 
  * @author Deynne
- * @author Igor
  * @author Ingrid
- * @author Junior
- * @author Joubert
  * @version 1.4
  * 
  */
@@ -42,7 +39,7 @@ public class Produto{
     /**
      * 
      * Construtor mais simples, sem parametros.
-     * 
+     * @since Versão 1.4
      */
     public Produto(){
         nome = ""; // Armazena o nome do produto.
@@ -68,7 +65,7 @@ public class Produto{
      * @param dia dia de vencimento.
      * @param mes mês de vencimento.
      * @param ano ano de vencimento.
-     * 
+     * @since Versão 1.0
      */
     public Produto(String nome, String codigo, int dia, int mes, int ano) {
         this.nome = nome; // Define nome(variavel) como nome(Parametro).
@@ -93,7 +90,7 @@ public class Produto{
      * @param dia Dia de vencimento
      * @param mes Mes de vencimento
      * @param ano Ano de vencimento
-     * 
+     * @since Versão 1.0
      */
     public Produto(String nome, String codigo, Double preco, Double custo, int dia, int mes, int ano) {
         this(nome,codigo,dia,mes,ano); // Chama o construtor anterior.
@@ -103,12 +100,13 @@ public class Produto{
 //Metodos 
     /**
      * 
-     * valImp(): Calcula o valor inserido com o desconto da porcentagem de
+     * Calcula o valor inserido com o desconto da porcentagem de
      * impostos.
      * 
      * @param valor // valor a ser calculado.
-     * @return O valor inserido com o desconto dos impostos.
-     * 
+     * @return Um <code>Double</code> representando o valor com impostos descontados.
+     * @see Double
+     * @since 1.0
      */
     public Double valImp(Double valor) {
         return valor -= valor*this.imposto; // Retorna o valor menos o imposto.
@@ -116,12 +114,12 @@ public class Produto{
     
     /**
      * 
-     * NaValidade(): Verifica se o produto se encontra na validade ou não.
+     * Verifica se o produto se encontra na validade ou não.
      * Caso a data de validade estiver antes dada ta atual o
      * produto esta na validade, caso contrario, nao está.
      * 
-     * @return true se o valor de validade estiver antes do de dataAtual,
-     * false caso contrario.
+     * @return <code>true</code> se o valor de validade estiver antes do de dataAtual, <code>false</code> caso contrario.
+     * @since Versão 1.2
      * 
      */
     public boolean naValidade () {
@@ -132,13 +130,14 @@ public class Produto{
     
     /** 
      * 
-     * Lucro(): Calcula o lucro esperado para um produto, ja considerando o
+     * Calcula o lucro esperado para um produto, ja considerando o
      * desconto dos impostos.
      * 
      * @param preco O preço de venda do produto
      * @param custo O preço de obtenção do produto(do fabricante).
-     * @return a diferença entre o custo de compra e venta (Lucro esperado).
-     * 
+     * @return Um <code>Double</code> contendo o lucro esperado pra um produto.
+     * @see Double
+     * @since Versão 1.0
      */
     public Double lucro(Double preco, Double custo) {
         double dif = valImp(preco); // dif recebe o valor do preço com o imposto descontado.
@@ -147,20 +146,20 @@ public class Produto{
     
     /**
      * 
-     * AdcionarProduto: Metodo que tem como objetivo possibilitar a criação de 
+     * Metodo que tem como objetivo possibilitar a criação de 
      * novos objetos do tipo Produto, Possibilitando a adção de novos produtos
      * a "lista".
      * 
      * @param produto Novo produto a ser adcionado.
-     * 
+     * @since Versão 1.4
      */
     public void adcionarProduto(Produto produto) {
         /* Caso o objeto proximoProduto seja nulo, ele está apto a receber
         o parametro produto, que contem o novo produto.
         */
-        if(this.proximoProduto == null) {
+        if(proximoProduto == null) {
             // adciona produto na locação de proximoProduto
-            this.proximoProduto = produto; 
+            proximoProduto = produto; 
             return; //Return para finalizar a função.
         }
         else {
@@ -170,35 +169,35 @@ public class Produto{
             A função continuará rodando ate que enfim encontre um 
             "proximoProduto" nulo onde possa alocar a variavel.
             */
-            this.proximoProduto.adcionarProduto(produto);
+            proximoProduto.adcionarProduto(produto);
             return; // retorno para finalizar a função.
         }
     }
     
     /**
      * 
-     * ProcurarProduto: Procura na "lista" de produtos por um nome ou
+     * Procura na "lista" de produtos por um nome ou
      * codigo de um produto expecifico, caso encontre, retorna o endereço de
      * memoria deste poduto, caso contrario retorna null.
      * 
      * @param nomeOuCodigo Nome ou codigo de barras do produto buscado.
-     * @return retorna o endereço de memoria do produto, caso o encontre, ou
-     * null, caso não encontre nenhum produto com o nome ou codigo inserido.
-     * 
+     * @return retorna o endereço do <code>Produto</code>, caso o encontre, ou
+     * <code>null</code>, caso não encontre nenhum produto com o nome ou codigo inserido.
+     * @since Versão 1.4
      */
     public Produto procurarProduto(String nomeOuCodigo) {
+        /* Verifica se o codigo ou o nome do produto atual é igual ao nome ou 
+        codigo no parametro.
+        */
+        if(this.codigo.equals(nomeOuCodigo) || this.nome.equals(nomeOuCodigo)) {
+            return this; // retorna o endereço do produto.
+        }
         /* Caso o proximoProduto do objeto atual seja nulo, então o fim da lista
         foi alcançado e desta forma não é possivel buscar mais pelo produto. Ele
         não existe na lista. Sendo assim, deve-se retornar um endereço nulo.
         */
-        if(this.proximoProduto == null) {
+        else if(proximoProduto == null) {
             return null; // Retorna null.
-        }
-        /* Verifica se o codigo ou o nome do produto atual é igual ao nome ou 
-        codigo no parametro.
-        */
-        else if(this.codigo.equals(nomeOuCodigo) || this.nome.equals(nomeOuCodigo)) {
-            return this; // retorna o endereço do produto.
         }
         /* Por fim, se o nome não é da função, e o proximoProduto não é null,
         então há ainda elementos não verificados na "lista" que devem ser
@@ -206,31 +205,31 @@ public class Produto{
         */
         else {
             // realisa a procura na proxima lista e retorna o que ela retornar.
-            return this.proximoProduto.procurarProduto(nomeOuCodigo);
+            return proximoProduto.procurarProduto(nomeOuCodigo);
         }
     }
     
     /**
      * 
-     * RemoverProduto: remove um dos elementos da lista.
+     * Remove um dos elementos da lista.
      * 
-     * @param nomeOuCodigo Nome ou codigo de barras do produto buscado para
-     * remoção.
-     * @return true se encontrar e remover o elemento, false caso contrario.
+     * @param nomeOuCodigo
+     * @return <code>true</code> se encontrar e remover o elemento, <code>false</code> caso contrario.
+     * @since Versão 1.4
      */
     public boolean removerProduto(String nomeOuCodigo) {
         /* Caso o proximoProduto do objeto atual seja nulo, então o fim da lista
         foi alcançado e desta forma não é possivel buscar mais pelo produto, ele
         não existe na lista e sendo assim, deve-se retornar false.
         */
-        if (this.proximoProduto == null){
+        if (proximoProduto == null){
             return false;
         }
         /* Se o produto atual tiver o nome ou o codigo determinado no parametro
         ele é o produto a ser removido.
         */
-        if(this.proximoProduto.nome.equals(nomeOuCodigo) || 
-           this.proximoProduto.codigo.equals(nomeOuCodigo)) {
+        if(proximoProduto.nome.equals(nomeOuCodigo) || 
+           proximoProduto.codigo.equals(nomeOuCodigo)) {
            /* Para que não haja perda dos demais fatores da lista, tendo em  
             apagar um elemento resulta em perder todos os seus "filhos", é
             necessario que o elemento a ser apagado receba o endereço do seu 
@@ -241,14 +240,14 @@ public class Produto{
             não possui mais variaveis se referindo a ele. Desta forma, cabe ao
             garbage colector a liberação da memoria.
             */
-            this.proximoProduto = this.proximoProduto.proximoProduto;
+            proximoProduto = proximoProduto.proximoProduto;
            return true; // finaliza a função
         }
         else {
             /* Caso contrario executa a função para o proximo produto e retorna
             o que ela retornar.
             */
-            return this.proximoProduto.removerProduto(nome);
+            return proximoProduto.removerProduto(nome);
             
         }
     }
@@ -256,11 +255,11 @@ public class Produto{
 //Sets
     /**
      * 
-     * setNome(): Permite a insersão de um nome.
+     * Permite a insersão de um nome.
      * 
      * @param nome O nome do produto.
-     * @see getNome()
-     * 
+     * @see Produto#getNome()
+     * @since Versão 1.0
      */
     public void setNome(String nome) {
         this.nome = nome; // nome variavel recebe o nome parametro.
@@ -268,11 +267,11 @@ public class Produto{
     
     /**
      * 
-     * setCodigo(): Permite a insersão de um codigo.
+     * Permite a insersão de um codigo.
      * 
      * @param codigo O codigo do produto.
-     * @see getCodigo()
-     * 
+     * @see Produto#getCodigo()
+     * @since Versão 1.0
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo; // codigo variavel recebe codigo parametro.
@@ -280,10 +279,10 @@ public class Produto{
     
     /**
      * 
-     * setPreco(): Permite a insersão de um preço.
+     * Permite a insersão de um preço.
      * 
      * @param preco O preço do produto.
-     * @see getPreco()
+     * @see Produto#getPreco()
      * 
      */
     public void setPreco(Double preco) {
@@ -292,10 +291,10 @@ public class Produto{
     
     /**
      * 
-     * setCusto(): Permite a insersão de um custo.
+     * Permite a insersão de um custo.
      * 
      * @param custo O custo do produto.
-     * @see getCusto()
+     * @see Produto#getCusto()
      * 
      */
     public void setCusto(Double custo) {
@@ -304,13 +303,13 @@ public class Produto{
     
     /**
      * 
-     * setValidade(): Permite a insersão de uma validade.
+     * Permite a insersão de uma validade.
      * 
      * @param dia dia de vencimento
      * @param mes mes de vencimento
      * @param ano ano de vencimento
-     * @see getValidade()
-     * 
+     * @see Produto#getValidade()
+     * @since Versão 1.2
      */
     public void setValidade(int dia, int mes,int ano) {
         /* Utiliza set para definir o dia, mes e ano. Observe que o mês recebe
@@ -326,8 +325,8 @@ public class Produto{
      * inserido será inteiro e então será convertido para real.
      * 
      * @param imposto 
-     * @see getImposto()
-     * 
+     * @see Produto#getImposto()
+     * @since 1.0
      */
     public void setImposto(Double imposto) {
         this.imposto = imposto/100;
@@ -336,11 +335,11 @@ public class Produto{
 //Gets
     /**
      * 
-     * getNome(): Exibe o nome do produto.
+     * Exibe o nome do produto.
      * 
-     * @return retorna a String do nome
-     * @see setNome
-     * 
+     * @return retorna a <code>String</code> do nome
+     * @see Produto#setNome(java.lang.String)
+     * @since Versão 1.0
      */
     public String getNome() {
         return this.nome; // retorno do nome do produto.
@@ -348,11 +347,11 @@ public class Produto{
     
     /**
      * 
-     * getCodigo(): Exibe o codigo de barras do produto
+     * Exibe o codigo de barras do produto
      * 
-     * @return retorna o codigo de produto.
-     * @see setCodigo()
-     * 
+     * @return retorna o <code>String</code> do code.
+     * @see Produto#setCodigo(java.lang.String) 
+     * @since Versão 1.0
      */
     public String getCodigo() {
         return this.codigo; // retorna o nome do produto.
@@ -360,11 +359,11 @@ public class Produto{
     
     /**
      * 
-     * getPreco(): Exibe o preço do produto.
+     * Exibe o preço do produto.
      * 
-     * @return retorna o preço do produto.
-     * @see setPreco()
-     * 
+     * @return retorna o <code>Double</code> do preço.
+     * @see Produto#setPreco(java.lang.Double) 
+     * @since Versão 1.0
      */
     public Double getPreco() {
         return this.preco; // retorna o preço do produto.
@@ -374,9 +373,9 @@ public class Produto{
      * 
      * getCusto: Exibe o custo do produto.
      * 
-     * @return retorna o custo do produto.
-     * @see setCusto()
-     * 
+     * @return retorna o <code>Double</code> do custo.
+     * @see Produto#setCusto(java.lang.Double) 
+     * @since Versão 1.0
      */
     public Double getCusto() {
         return this.custo; // retorna o custo do produto.
@@ -386,8 +385,9 @@ public class Produto{
      * 
      * getValidade: Exibe a validade no formato dd/MM/YYYY.
      * 
-     * @return retorna a validade do protudo.
-     * @see setValidade()
+     * @return retorna a <code>String</code> da validade do protudo.
+     * @see Produto#setValidade(int, int, int) 
+     * @since Versão 1.2
      */
     public String getValidade() {
         Integer dia, mes, ano; // Variaveis para o dia, mes e ano.
@@ -403,11 +403,11 @@ public class Produto{
         return dia.toString() + "/" + mes.toString() + "/" + ano.toString() + " ";
     }
     /**
-     * getImposto: Retorna o valor do importo calculado em forma de porcentagem
+     * Retorna o valor do importo calculado em forma de porcentagem
      * 
-     * @return 
-     * @see setImposto()
-     * 
+     * @return retorna a <code>String</code> da validade do imposto.
+     * @see Produto#setImposto(java.lang.Double) 
+     * @since Versão 1.0
      */
     public String getImposto() {
         Double num = this.imposto * 100;

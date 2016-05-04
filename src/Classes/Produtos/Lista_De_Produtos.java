@@ -1,5 +1,5 @@
 
-package Classes;
+package Classes.Produtos;
 
 /**
  *
@@ -11,11 +11,8 @@ package Classes;
  * 
  * @author Deynne
  * @author Ingrid
- * @author Junior
- * @author Joubert
- * @author Igor
- * @version 1.2
- * @see classe Produto
+ * @version 1.4
+ * @see Produto
  */
 public class Lista_De_Produtos {
     /* A classe contem um produto, inicialmente nulo. Este produto é o produto 
@@ -27,20 +24,21 @@ public class Lista_De_Produtos {
 //Metodos
     /**
      * 
-     * AdcionarProduto: Metodo para adcionar itens a lista. Ela aloca espaço 
+     * Metodo para adcionar itens a lista. Ela aloca espaço 
      * para o objeto produto, caso nao tenha sido alocado e invoca o metodo
      * AdcionarProduto da classe Produto.
      * 
-     * @param produto Um produto criado anteriormente a chamada 
-     * que será adcionado a lista
-     * @see AdcionarProduto (Classe Produto)
+     * @param produto
+     * @see Produto#adcionarProduto(Classes.Produtos.Produto)
+     * @throws NullPointerException
+     * @since 1.4
      */
     public void adcionarProduto(Produto produto) {
-        /* Caso não exista espaço alocado para o produto base, ele deve ser
+        /* Caso nao exista espaco alocado para o produto base, ele deve ser
         criado.
         */
         if(produtoBase == null) {
-            produtoBase = new Produto(); // Aloca espaoo para o produto.
+            produtoBase = new Produto(); // Aloca espaco para o produto.
         }
         // Invoca o metodo da classe Produto utilizando o mesmo parametro.
         produtoBase.adcionarProduto(produto);
@@ -48,21 +46,21 @@ public class Lista_De_Produtos {
     
     /**
      * 
-     * ProcurarProduto: Metodo que busca um produto através de seu nome ou
+     * Metodo que busca um produto através de seu nome ou
      * codigo de barras.
      * 
-     * @param nomeOuCodigo Um nome ou codigo a ser buscado nos produtos da
-     * lista.
-     * @return Endereço do objeto produto buscado. Retorna null caso nao 
-     * encontre.
-     * @see ProcurarProduto (Classe Produto)
+     * @param nomeOuCodigo 
+     * @return Endereço do <code>Produto</code> buscado. Retorna <code>null</code> caso nao encontre.
+     * @throws NullPointerException
+     * @see Produto#procurarProduto(java.lang.String) 
+     * @since Versão 1.4
      */
     public Produto procurarProduto(String nomeOuCodigo) {
-        /* Caso não exista espaço alocado para o produto base, ele deve ser
+        /* Caso nao exista espaco alocado para o produto base, ele deve ser
         criado.
         */
         if(produtoBase == null) {
-            produtoBase = new Produto(); // Aloca espaoo para o produto.
+            produtoBase = new Produto(); // Aloca espaco para o produto.
         }
         /* Invoca o metodo da classe Produto utilizando o mesmo parametro.
         e retorna o que ela lhe retornar.
@@ -72,14 +70,17 @@ public class Lista_De_Produtos {
     
     /**
      * 
-     * RemoverProduto: Metodo com o objetivo de remover da lista um produto que
+     * Metodo com o objetivo de remover da lista um produto que
      * atenda pelo nome ou codigo inserido. 
      * 
-     * @param nomeOuCodigo Nome ou codigo de um item na lista a ser removido.
-     * @return true caso consiga remover, false caso não consiga.
+     * @param nomeOuCodigo 
+     * @return <code>true</code> caso consiga remover, <code>false</code> caso não consiga.
+     * @see Produto#removerProduto(java.lang.String) 
+     * @throws NullPointerException
+     * @since Versão 1.4
      */
     public boolean removerProduto(String nomeOuCodigo) {
-        /* Caso não exista espaço alocado para o produto base, ele deve ser
+        /* Caso nao exista espaco alocado para o produto base, ele deve ser
         criado.
         */
         if(produtoBase == null) {
@@ -89,11 +90,14 @@ public class Lista_De_Produtos {
         e retorna o que ela lhe retornar.
         */
         return produtoBase.removerProduto(nomeOuCodigo);
+        
     }
     
     /**
      * ApagarLista: Função que tem como intuito apagar totalmente uma lista 
      * criada.
+     * @throws NullPointerException
+     * @since Versão 1.4
      */
     public void apagarLista() {
         /* Define o objeto como null, removendo qualquer declaração dele e
